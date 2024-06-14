@@ -22,7 +22,6 @@ public class AccommodationResponse {
     private BigDecimal price;
     private int maxGuests;
     private String amenities;
-    private String imageUrl;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private OffsetDateTime createdAt;

@@ -46,7 +46,10 @@ public class Accommodation implements Serializable {
 
     @Size(min = 10, max = 200, message = "O endereço deve ter entre {min} e {max} caracteres.")
     private String amenities;
-    private String imageUrl;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] image;
 
     @ManyToOne
     @JoinColumn(nullable = false)

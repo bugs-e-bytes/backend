@@ -1,6 +1,7 @@
 package br.com.creativeexperience.book_now.accommodation.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 
@@ -19,6 +20,5 @@ public class AccommodationRequest {
     private BigDecimal price;
     private int maxGuests;
     private String amenities;
-    private String imageUrl;
 
 }

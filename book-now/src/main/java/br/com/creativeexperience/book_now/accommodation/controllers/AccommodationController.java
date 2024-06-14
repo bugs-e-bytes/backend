@@ -2,14 +2,17 @@ package br.com.creativeexperience.book_now.accommodation.controllers;
 
 import br.com.creativeexperience.book_now.accommodation.dto.AccommodationRequest;
 import br.com.creativeexperience.book_now.accommodation.dto.AccommodationResponse;
+import br.com.creativeexperience.book_now.accommodation.dto.ImageResponse;
 import br.com.creativeexperience.book_now.accommodation.services.AccommodationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class AccommodationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'OWNER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public ResponseEntity<AccommodationResponse> getAccommodation(@PathVariable Long id, Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -98,6 +101,20 @@ public class AccommodationController {
         AccommodationResponse updatedAccommodation = accommodationService
                 .updateAccommodationForUser(id, request, username);
         return ResponseEntity.ok(updatedAccommodation);
+    }
+
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'OWNER')")
+    @PostMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ImageResponse> addImageToAccommodation(@PathVariable Long id,
+                                                                 @RequestParam("image") MultipartFile image,
+                                                                 Authentication authentication) {
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        ImageResponse response = accommodationService.addImageToAccommodation(id, image);
+        return ResponseEntity.ok(response);
     }
 
 }
