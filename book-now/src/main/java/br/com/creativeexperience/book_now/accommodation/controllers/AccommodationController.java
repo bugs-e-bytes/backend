@@ -52,7 +52,7 @@ public class AccommodationController {
         }
     }
 
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'OWNER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping
     public ResponseEntity<List<AccommodationResponse>> listAccommodations(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
