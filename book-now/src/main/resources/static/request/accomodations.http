@@ -1,0 +1,15 @@
+### Cadastrar acomodação
+POST http://localhost:8080/booknow/accommodations
+Authorization: Bearer <YOUR_JWT_TOKEN>
+Content-Type: application/json
+
+{
+  "title": "Chalé nas Montanhas",
+  "location": "Serra da Mantiqueira, São Paulo, Brazil",
+  "price": 300.00,
+  "maxGuests": 4,
+  "amenities": "Wi-Fi, Fireplace, Mountain View"
+}
+
+###
+

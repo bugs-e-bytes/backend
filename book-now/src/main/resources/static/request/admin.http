@@ -1,0 +1,18 @@
+### Cadastrar administrador
+POST http://localhost:8080/booknow/admins/create-admin
+Authorization: Bearer <YOUR_JWT_TOKEN>
+Content-Type: application/json
+
+{
+  "name": "Admin Name",
+  "email": "admin@example.com",
+  "password": "SecurePass123!",
+  "confirmPassword": "SecurePass123!",
+  "cpf": "123.456.789-00",
+  "phoneNumber": "+5511999999999",
+  "address": "Admin Address",
+  "role": 1
+}
+
+###
+

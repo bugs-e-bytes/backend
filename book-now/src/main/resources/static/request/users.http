@@ -1,0 +1,20 @@
+### Atualizar Usuário
+PUT http://localhost:8080/users/update
+Authorization: Bearer <YOUR_JWT_TOKEN>
+Content-Type: application/json
+
+{
+  "name": "Updated User Name",
+  "email": "updateduser@example.com",
+  "password": "NewSecurePass123!",
+  "confirmPassword": "NewSecurePass123!",
+  "cpf": "123.456.789-00",
+  "phoneNumber": "+5511999999999",
+  "address": "Updated User Address",
+  "active": true,
+  "role": 2
+}
+
+### Deletar Usuário
+DELETE http://localhost:8080/users/delete
+Authorization: Bearer <YOUR_JWT_TOKEN>

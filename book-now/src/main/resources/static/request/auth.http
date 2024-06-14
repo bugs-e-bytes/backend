@@ -1,0 +1,24 @@
+### Cadastrar Usuário
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "name": "User Name",
+  "email": "user@example.com",
+  "password": "SecurePass123!",
+  "confirmPassword": "SecurePass123!",
+  "cpf": "123.456.789-00",
+  "phoneNumber": "+5511999999999",
+  "address": "User Address",
+  "role": 2
+}
+
+### Login
+POST http://localhost:8080/booknow/auth/login
+Content-Type: application/json
+
+{
+  "email": "julianemaran@gmail.com",
+  "password": "P4$$w0rD"
+}
+

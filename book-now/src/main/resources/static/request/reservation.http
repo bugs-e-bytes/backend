@@ -1,0 +1,25 @@
+### Cadastrar Reserva
+POST http://localhost:8080/booknow/reservations/register
+Authorization: Bearer <YOUR_JWT_TOKEN>
+Content-Type: application/json
+
+{
+  "accommodationId": 1,
+  "checkInDate": "2024-07-01",
+  "checkOutDate": "2024-07-05",
+  "numberOfPeople": 2
+}
+
+### Confirmar Pagamento da Reserva
+PUT http://localhost:8080/booknow/reservations/1/confirm-payment
+Authorization: Bearer <YOUR_JWT_TOKEN>
+Content-Type: application/json
+
+{
+  "paymentAmount": 1000.00
+}
+
+### Cancelar Reserva
+PUT http://localhost:8080/booknow/reservations/1/cancel
+Authorization: Bearer <YOUR_JWT_TOKEN>
+Content-Type: application/json
