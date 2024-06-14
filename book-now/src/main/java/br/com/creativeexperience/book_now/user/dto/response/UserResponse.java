@@ -6,6 +6,9 @@ import lombok.*;
 
 import java.time.OffsetDateTime;
 
+/**
+ * Representa os dados que serão retornados em uma resposta ao consultar ou manipular informações de usuário.
+ */
 @Getter
 @Setter
 @Builder

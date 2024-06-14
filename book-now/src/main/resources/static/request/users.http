@@ -18,3 +18,15 @@ Content-Type: application/json
 ### Deletar Usuário
 DELETE http://localhost:8080/users/delete
 Authorization: Bearer <YOUR_JWT_TOKEN>
+
+###
+POST http://localhost:8080/booknow/auth/login
+Content-Type: application/json
+
+{
+  "email": "eliada.estudos@gmail.com",
+  "password": "P4$$w0rD"
+}
+
+###
+

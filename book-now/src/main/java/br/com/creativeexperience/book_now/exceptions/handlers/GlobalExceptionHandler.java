@@ -46,6 +46,12 @@ public class GlobalExceptionHandler {
         return buildResponseEntity(ex, HttpStatus.BAD_REQUEST, ExceptionEnum.REQUIRED_FIELD);
     }
 
+    @ExceptionHandler({BookingNotFoundException.class})
+    public ResponseEntity<ExceptionResponse> handleBookingNotFoundException(BookingNotFoundException ex) {
+        log.info("Reserva não encontrado.");
+        return buildResponseEntity(ex, HttpStatus.NOT_FOUND, ExceptionEnum.BOOKING_NOT_FOUND);
+    }
+
     @ExceptionHandler({CpfAlreadyExistsException.class})
     public ResponseEntity<ExceptionResponse> handleCpfAlreadyExistsException(CpfAlreadyExistsException ex) {
         log.info("CPF já em uso.");
@@ -122,6 +128,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleRoleNotFoundException(RoleNotFoundException ex) {
         log.info("Permissão USER não encontrada.");
         return buildResponseEntity(ex, HttpStatus.NOT_FOUND, ExceptionEnum.ROLE_NOT_FOUND);
+    }
+
+    @ExceptionHandler({UnauthorizedUserException.class})
+    public ResponseEntity<ExceptionResponse> handleUnauthorizedUserException(UnauthorizedUserException ex) {
+        log.info("Usuário inativo.");
+        return buildResponseEntity(ex, HttpStatus.UNAUTHORIZED, ExceptionEnum.UNAUTHORIZED_USER);
     }
 
     @ExceptionHandler({UserInactiveException.class})

@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
+/**
+ * Representa os dados que podem ser recebidos em uma requisição para criar ou atualizar um usuário.
+ */
 @Getter
 @Setter
 @Builder

@@ -1,6 +1,7 @@
 package br.com.creativeexperience.book_now.user.entities;
 
 import br.com.creativeexperience.book_now.accommodation.entities.Accommodation;
+import br.com.creativeexperience.book_now.booking.entities.Booking;
 import br.com.creativeexperience.book_now.user.roles.entities.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -77,6 +78,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Accommodation> accommodations;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
 
     @CreationTimestamp
     @Column(updatable = false)

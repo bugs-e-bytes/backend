@@ -18,6 +18,8 @@ public interface AccommodationMapper {
     AccommodationMapper INSTANCE = Mappers.getMapper(AccommodationMapper.class);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     Accommodation toAccommodation(AccommodationRequest accommodationRequest);
 
     AccommodationResponse toAccommodationResponse(Accommodation accommodation);

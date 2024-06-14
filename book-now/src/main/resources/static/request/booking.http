@@ -1,0 +1,14 @@
+### Efetuar reserva
+POST http://localhost:8080/booknow/bookings
+Authorization: Bearer SEU_TOKEN_JWT_AQUI
+Content-Type: application/json
+
+{
+  "accommodationId": 1,
+  "startDate": "2024-07-01",
+  "endDate": "2024-07-07",
+  "numGuests": 3
+}
+
+###
+

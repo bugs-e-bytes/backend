@@ -11,12 +11,14 @@ public enum ExceptionEnum {
     PASSWORD_NOT_MATCH("As senhas não coincidem."), // 400 BAD REQUEST
     EMAIL_INCORRECT("Email incorreto."), // 400 BAD REQUEST
     PASSWORD_INCORRECT("Senha incorreta"), // 400 BAD REQUEST
+    UNAUTHORIZED_USER("Usuário não possui permissão para acessar."), // 401 UNAUTHORIZED
     USER_INACTIVE("Usuário está inativo e não pode realizar login."), // 403 FORBIDDEN
     ACCOMMODATION_OWNERSHIP("Acomodação não pertence ao usuário."), // 403 FORBIDDEN
     CPF_NOT_FOUND("CPF não encontrado."), // 404 NOT FOUND
     EMAIL_NOT_FOUND("E-mail não encontrado."), // 404 NOT FOUND
     USER_NOT_FOUND("Usuário não encontrado."), // 404 NOT FOUND
     ROLE_NOT_FOUND("Role não encontrada."), // 404 NOT FOUND
+    BOOKING_NOT_FOUND("Reserva não encontrada."), // 404 NOT FOUND
     RESOURCE_NOT_FOUND("Recurso não encontrada."), // 404 NOT FOUND
     USER_NOT_REGISTERED("Usuário não cadastrado."), // 404 NOT FOUND
     ACCOMMODATION_NOT_FOUND("Acomodação não cadastrado."), // 404 NOT FOUND

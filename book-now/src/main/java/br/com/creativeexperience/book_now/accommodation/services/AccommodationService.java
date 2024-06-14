@@ -35,7 +35,7 @@ public class AccommodationService {
 
     @Transactional(readOnly = true)
     public AccommodationResponse getAccommodationForUser(Long id, String username) {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(AccommodationNotFoundException::new);
+        final var accommodation = getAccommodation(id);
         if (!accommodation.getUser().getUsername().equals(username)) {
             throw new AccommodationOwnershipException();
         }
@@ -57,7 +57,7 @@ public class AccommodationService {
 
     @Transactional
     public void deleteAccommodationForUser(Long id, String username) {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(AccommodationNotFoundException::new);
+        final var accommodation = getAccommodation(id);
         if (!accommodation.getUser().getUsername().equals(username)) {
             throw new AccommodationOwnershipException();
         }
@@ -66,8 +66,7 @@ public class AccommodationService {
 
     @Transactional
     public AccommodationResponse updateAccommodationForUser(Long id, AccommodationRequest request, String username) {
-        Accommodation accommodation = accommodationRepository.findById(id)
-                .orElseThrow(AccommodationNotFoundException::new);
+        var accommodation = getAccommodation(id);
         if (!accommodation.getUser().getUsername().equals(username)) {
             throw new AccommodationOwnershipException();
         }
@@ -80,4 +79,12 @@ public class AccommodationService {
         return AccommodationMapper.INSTANCE.toAccommodationResponse(accommodation);
     }
 
+    private Accommodation getAccommodation(Long id) {
+        return accommodationRepository.findById(id)
+                .orElseThrow(AccommodationNotFoundException::new);
+    }
+
+    public void getAccommodationById(Long id) {
+        accommodationRepository.findById(id);
+    }
 }
