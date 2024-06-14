@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin(maxAge = 36000, allowCredentials = "true",
         value = "http://localhost:4200",
@@ -41,7 +40,9 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponse> authenticate(@RequestBody @Valid LoginRequest loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
-        final var roles = getStrings(authenticatedUser);
+        final List<String> roles = authenticatedUser.getAuthorities().stream()
+                .map(Object::toString)
+                .toList();
 
         LoginResponse loginResponse = LoginResponse.builder()
                 .token(jwtToken)
@@ -53,13 +54,6 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(loginResponse);
 
-    }
-
-    // Convertendo Set<Role> para List<String>
-    private static List<String> getStrings(User authenticatedUser) {
-        return authenticatedUser.getRoles().stream()
-                .map(role -> role.getName().name())
-                .collect(Collectors.toList());
     }
 
 }

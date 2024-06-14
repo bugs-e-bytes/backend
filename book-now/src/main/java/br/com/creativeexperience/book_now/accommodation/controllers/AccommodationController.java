@@ -32,9 +32,7 @@ public class AccommodationController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
         String username = authentication.getName();
-
         AccommodationResponse response = accommodationService.createAccommodationForUser(request, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -69,6 +67,37 @@ public class AccommodationController {
     public ResponseEntity<List<AccommodationResponse>> listAllAccommodations() {
         List<AccommodationResponse> accommodations = accommodationService.listAllAccommodations();
         return ResponseEntity.ok(accommodations);
+    }
+
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'OWNER')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAccommodation(@PathVariable Long id, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        String username = authentication.getName();
+        accommodationService.deleteAccommodationForUser(id, username);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'OWNER')")
+    @PutMapping("/{id}")
+    public ResponseEntity<AccommodationResponse> updateAccommodation(
+            @PathVariable Long id,
+            @RequestBody AccommodationRequest request,
+            Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        String username = authentication.getName();
+        AccommodationResponse existingAccommodation = accommodationService
+                .getAccommodationForUser(id, username);
+        if (existingAccommodation == null) {
+            return ResponseEntity.notFound().build();
+        }
+        AccommodationResponse updatedAccommodation = accommodationService
+                .updateAccommodationForUser(id, request, username);
+        return ResponseEntity.ok(updatedAccommodation);
     }
 
 }

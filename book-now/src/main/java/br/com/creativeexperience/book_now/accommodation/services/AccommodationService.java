@@ -26,33 +26,19 @@ public class AccommodationService {
 
     @Transactional
     public AccommodationResponse createAccommodationForUser(AccommodationRequest request, String username) {
-        // Recuperar o usuário com base no nome de usuário fornecido
         User user = userRepository.findByEmail(username).orElseThrow();
-
-        // Mapear a solicitação de acomodação para uma entidade de acomodação
         Accommodation accommodation = AccommodationMapper.INSTANCE.toAccommodation(request);
-
-        // Associar a acomodação ao usuário recuperado
         accommodation.setUser(user);
-
-        // Salvar a acomodação no banco de dados
         accommodation = accommodationRepository.save(accommodation);
-
-        // Retornar a acomodação recém-criada, mapeada para o objeto de resposta
         return AccommodationMapper.INSTANCE.toAccommodationResponse(accommodation);
     }
 
     @Transactional(readOnly = true)
     public AccommodationResponse getAccommodationForUser(Long id, String username) {
-        // Recuperar a acomodação com base no ID fornecido
         Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(AccommodationNotFoundException::new);
-
-        // Verificar se a acomodação pertence ao usuário específico
         if (!accommodation.getUser().getUsername().equals(username)) {
             throw new AccommodationOwnershipException();
         }
-
-        // Mapear a acomodação recuperada para o objeto de resposta
         return AccommodationMapper.INSTANCE.toAccommodationResponse(accommodation);
     }
 
@@ -67,6 +53,31 @@ public class AccommodationService {
     public List<AccommodationResponse> listAllAccommodations() {
         List<Accommodation> accommodations = accommodationRepository.findAll();
         return AccommodationMapper.INSTANCE.toAccommodationResponseList(accommodations);
+    }
+
+    @Transactional
+    public void deleteAccommodationForUser(Long id, String username) {
+        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(AccommodationNotFoundException::new);
+        if (!accommodation.getUser().getUsername().equals(username)) {
+            throw new AccommodationOwnershipException();
+        }
+        accommodationRepository.delete(accommodation);
+    }
+
+    @Transactional
+    public AccommodationResponse updateAccommodationForUser(Long id, AccommodationRequest request, String username) {
+        Accommodation accommodation = accommodationRepository.findById(id)
+                .orElseThrow(AccommodationNotFoundException::new);
+        if (!accommodation.getUser().getUsername().equals(username)) {
+            throw new AccommodationOwnershipException();
+        }
+        accommodation.setTitle(request.getTitle());
+        accommodation.setLocation(request.getLocation());
+        accommodation.setPrice(request.getPrice());
+        accommodation.setMaxGuests(request.getMaxGuests());
+        accommodation.setAmenities(request.getAmenities());
+        accommodation = accommodationRepository.save(accommodation);
+        return AccommodationMapper.INSTANCE.toAccommodationResponse(accommodation);
     }
 
 }
