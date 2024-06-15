@@ -4,10 +4,8 @@ import br.com.creativeexperience.book_now.booking.entities.Booking;
 import br.com.creativeexperience.book_now.user.entities.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -30,21 +28,16 @@ public class Accommodation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Size(min = 10, max = 20, message = "O endereço deve ter entre {min} e {max} caracteres.")
     private String title;
 
-    @Size(min = 10, max = 250, message = "O endereço deve ter entre {min} e {max} caracteres.")
     private String location;
 
     @PositiveOrZero
     private BigDecimal price;
 
     @Min(value = 1, message = "Número de hóspedes deve ser no mínimo {value}")
-    @Max(value = 50, message = "Número de hóspedes não pode exceder o limite de {value}")
     private int maxGuests;
 
-    @Size(min = 10, max = 200, message = "O endereço deve ter entre {min} e {max} caracteres.")
     private String amenities;
 
     @Lob
