@@ -67,6 +67,26 @@ spring:
         default-page-number: 0
         sort:
           sort-parameter: sort
+springdoc:
+  default-consumes-media-type: '*/*'
+  default-produces-media-type: '*/*'
+  show-actuator: true
+  #  use-management-port: true
+  override-with-generic-response: true # adiciona @RestControllerAdvice
+  cache:
+    disabled: false # desabilita o chace springdoc-openapi
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    operations-sorter: method
+    csrf:
+      enabled: false # evitar o suporte CSRF
+      use-local-storage: false # obter o token CSRF do armazenamento local
+      use-session-storage: false # obter o token CSRF do Session Storage
+      cookie-name: 'XSRF-TOKEN' # opcional - define o nome do Cookie CSRF
+      header-name: 'X-XSRF-TOKEN' # opcional - define o nome do cabeçalho CSRF
 
 security:
   jwt:
@@ -82,3 +102,9 @@ logging:
     web: DEBUG
     org.springframework.boot: DEBUG
     br.com.finalproject.petconnect: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

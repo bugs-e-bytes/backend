@@ -35,6 +35,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests.requestMatchers(
                                 "/booknow", "/booknow/**", "/error",
+                                "/actuator", "/actuator/**", "/webjars/**",
+                                "/swagger-ui*/*swagger-initializer.js", "/swagger-ui*/**",
+                                "/api-docs",
                                 "/auth/signup", "/auth/login",
                                 "/password/reset-password", "/password/reset-password/confirm",
                                 "/accommodations/list").permitAll()
